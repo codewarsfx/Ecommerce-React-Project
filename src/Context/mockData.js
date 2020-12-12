@@ -162,6 +162,7 @@ export const homeSections = [
     title: 'Womens',
     routeName: 'womens',
     imageUrl: 'https://i.ibb.co/GCCdy8t/womens.png',
+    size:'large',
     items: [
       {
         id: 1,
@@ -212,6 +213,7 @@ export const homeSections = [
     title: 'Mens',
     routeName: 'mens',
     imageUrl: 'https://i.ibb.co/R70vBrQ/men.png',
+    size:'large',
     items: [
       {
         id: 1,

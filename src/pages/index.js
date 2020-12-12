@@ -1,3 +1,4 @@
 import Homepage from './homepage'
+import Shop from './shopPage'
 
-export {Homepage}
+export {Homepage,Shop}

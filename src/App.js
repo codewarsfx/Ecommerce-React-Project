@@ -1,18 +1,20 @@
 
-import './App.css';
-import {Homepage} from './pages'
+
+import {Homepage,Shop} from './pages'
 import {createGlobalStyle} from 'styled-components'
 import {Route, Switch} from 'react-router-dom'
-import Hat from './pages/hatsPage';
+import { Header } from './components';
+
 
 function App() {
   return (
     <div >
-      <Global/>
+      <Header/>
       <Switch>
       <Route exact path='/' component={Homepage }/>
-      <Route exact path='/hats' component={Hat}/>
+      <Route exact path='/shop' component={Shop}/>
       </Switch>
+      <Global/>
     </div>
   );
 }
@@ -20,6 +22,12 @@ function App() {
 const Global= createGlobalStyle`
 body{
   font-family: 'Open Sans Condensed', sans-serif;
+  padding: 20px 60px;
+}
+
+a{
+  text-decoration:none;
+  color:black;
 }
 
 `
