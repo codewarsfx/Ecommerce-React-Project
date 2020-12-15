@@ -1,6 +1,6 @@
 
 
-import {Homepage,Shop} from './pages'
+import {Homepage,Shop, SignUpSignIn} from './pages'
 import {createGlobalStyle} from 'styled-components'
 import {Route, Switch} from 'react-router-dom'
 import { Header } from './components';
@@ -13,6 +13,7 @@ function App() {
       <Switch>
       <Route exact path='/' component={Homepage }/>
       <Route exact path='/shop' component={Shop}/>
+      <Route exact path='/signin' component={SignUpSignIn}/>
       </Switch>
       <Global/>
     </div>

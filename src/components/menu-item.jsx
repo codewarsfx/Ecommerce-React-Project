@@ -84,5 +84,5 @@ const Menu = styled.div`
         }
     }
 `
-
+// @ts-ignore
 export default withRouter(MenuItem)
