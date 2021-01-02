@@ -3,6 +3,7 @@ import Directory from './directory'
 import CollectionPreview from './collectionPreview'
 import Header from './header'
 import SignIn from './SignIn'
+import {auth} from './firebase.utils'
 
 
-export {MenuItem, Directory,CollectionPreview,Header,SignIn}
+export {MenuItem, Directory,CollectionPreview,Header,SignIn,auth}

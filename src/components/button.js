@@ -2,10 +2,18 @@ import React from 'react'
 import styled from 'styled-components'
 
 
-const CustomButton = ({children,...otherProps})=>{
+const CustomButton = ({children,isGoogleSignin,...otherProps})=>{
+    if(isGoogleSignin) {
+        return(
+           <GoogleButton {...otherProps}>{
+               children
+           }
+           </GoogleButton>
+        )
+    }
     return(
         <Button {...otherProps}>
-            { children}
+            {children}
         </Button>
     )
 }
@@ -33,11 +41,20 @@ const Button= styled.button`
     background-color: white;
     color: black;
     border: 1px solid black;
+
+
   
 }
 
-
-
+`
+ const GoogleButton= styled(Button)`
+  background-color: #4285f4;
+     color:white;
+     &:hover{
+         background-color:#357ae8;
+         border:none;
+         color:white;
+     }
 `
 
 export default CustomButton

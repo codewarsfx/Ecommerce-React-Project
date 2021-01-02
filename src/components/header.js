@@ -2,9 +2,11 @@ import React  from 'react'
 import { Link } from 'react-router-dom'
 import logo  from '../assets/crown.svg'
 import styled from 'styled-components'
+import {auth} from './firebase.utils'
 
 
-const Header =()=>{
+
+const Header =({userData})=>{
 
     return(
         <Wrapper>
@@ -13,7 +15,10 @@ const Header =()=>{
             </Link>
             <div className="options">
                 <Link to='/shop' className="option">Shop</Link>
-                <Link to='/shop' className="option">Contact</Link>
+                <Link to='/shop' className="option">Contact</Link>{
+                  userData? <div className="option" onClick={()=>auth.signOut()}> SIGN OUT </div> :
+                  <Link to='/signIn'>SIGN IN</Link>
+                }
             </div>
 
         </Wrapper>
@@ -45,6 +50,7 @@ const Wrapper = styled.div`
 
     .option {
       padding: 10px 15px;
+      cursor: pointer;
     }
   
 }
