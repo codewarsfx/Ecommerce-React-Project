@@ -2,6 +2,8 @@ import firebase from 'firebase/app'
 import 'firebase/auth'
 import 'firebase/database'
 
+try{
+
 const config={
     apiKey: "AIzaSyDladrcEIze2yV3ibEbcw8RhHQhL6d6vOc",
     authDomain: "clothing-db-75803.firebaseapp.com",
@@ -12,11 +14,24 @@ const config={
     appId: "1:665026325050:web:7518f3fbbdefa1770a6303",
     measurementId: "G-WFZQ8ZBP6D"
   };
-
+ 
 
  firebase.initializeApp(config)
 
- export const auth= firebase.auth()
+}
+
+catch(error){
+  console.log('error occured while initializing firebase app',error)
+}
+
+
+
+ 
+
+
+ //firebase code for authorization
+
+ export const auth= firebase.auth() 
 
  const provider= new firebase.auth.GoogleAuthProvider()
 
@@ -24,18 +39,26 @@ const config={
 
  export const signInWithGoogle=()=>auth.signInWithPopup(provider)
 
+//  --------------------end of auth code ---------------
+
+
+//setting up database
  export const  database = firebase.database();
-
  export const createUserData =async (authUser,otherData)=>{
-
   if (!authUser) return;
-  database.ref(`users/${authUser.uid}`).set({
-      name:authUser.displayName,
-      email:authUser.email,
-      date: new Date(),
-      ...otherData
-    })
+  
+  database.ref(`users/${authUser.uid}`)
+          .set({
+              name:authUser.displayName,
+              email:authUser.email,
+              date: new Date(),
+              ...otherData
+            })
+          .catch(error=>console.log('an errror occured',error))
+
+  
 }
+// ------------------------------
 
   export default firebase
 
