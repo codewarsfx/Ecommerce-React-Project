@@ -3,7 +3,7 @@
 import {Homepage,Shop, SignUpSignIn} from './pages'
 import {createGlobalStyle} from 'styled-components'
 import {Route, Switch} from 'react-router-dom'
-import { Header,auth } from './components';
+import { Header,auth, createUserData } from './components';
 import { useEffect, useState } from 'react';
 
 
@@ -12,8 +12,8 @@ function App() {
 
  
   useEffect(()=>{
-    const unsuscribeFromAuth= auth.onAuthStateChanged((user)=>{
-      setUserData(user)
+    const unsuscribeFromAuth= auth.onAuthStateChanged(async (user)=>{
+        createUserData(user)
     })
 
     return ()=>{
