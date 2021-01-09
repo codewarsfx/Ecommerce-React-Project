@@ -10,18 +10,24 @@ import { useEffect, useState } from 'react';
 function App() {
   const [userData,setUserData] = useState(null)
 
- 
-  useEffect( ()=>{
-    const unsuscribeFromAuth= auth.onAuthStateChanged(async (user)=>{
-      if(!user) return;
+  useEffect(()=> {
+    const unsuscribeFromAuth= auth.onAuthStateChanged( async (user)=>{
+      if(user){
       const userRef= await createUserData(user);
       userRef.on('value',(snapshot)=>{
-          setUserData(snapshot.val()) 
-      }) 
-    })
+          setUserData({
+            currentID:user.uid,
+            ...snapshot.val()
+          }) 
+      })
+    }
+
+    setUserData(user)
+  })
     return ()=>{
       unsuscribeFromAuth()
     }
+  
   },[])
 
   console.log(userData)

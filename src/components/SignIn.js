@@ -35,14 +35,13 @@ const SignIn=()=>{
              }
 
     const handleSubmit = (e)=>{
-        console.log(state)
         e.preventDefault()
         //@ts-ignore 
         dispatch({type:"submit"})
     }
 
     return(
-        <>
+        <div>
         <h1>I already have an account</h1>
         <p>Sign in with your email and your password</p>
         <Form onSubmit={handleSubmit}>
@@ -53,7 +52,7 @@ const SignIn=()=>{
             <CustomButton  onClick= {signInWithGoogle} isGoogleSignin>Sign In with Google</CustomButton>
             </div>
         </Form>
-        </>
+        </div>
     )
 }
 
