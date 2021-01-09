@@ -43,22 +43,27 @@ catch(error){
 
 
 //setting up database
- export const  database = firebase.database();
- export const createUserData =async (authUser,otherData)=>{
-  if (!authUser) return;
-  
-  database.ref(`users/${authUser.uid}`)
-          .set({
-              name:authUser.displayName,
-              email:authUser.email,
-              date: new Date(),
-              ...otherData
-            })
-          .catch(error=>console.log('an errror occured',error))
+ export const database = firebase.database();
 
-  
+
+
+ export const createUserData =async (authUser,otherData) =>{
+     if(!authUser) return;
+     const userRef = database.ref(`users/${authUser.uid}`);
+     userRef.once('value',(snapshot)=>{
+       if(snapshot.val()) return;
+       const createdAt= new Date()
+       userRef.set({
+         name:authUser.displayName,
+         email:authUser.email,
+         createdAt,
+         ...otherData
+       })
+     })
+     console.log('hey')
+     console.log(userRef)
+     return userRef
 }
-// ------------------------------
 
   export default firebase
 

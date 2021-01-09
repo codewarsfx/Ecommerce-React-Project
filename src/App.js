@@ -11,16 +11,20 @@ function App() {
   const [userData,setUserData] = useState(null)
 
  
-  useEffect(()=>{
+  useEffect( ()=>{
     const unsuscribeFromAuth= auth.onAuthStateChanged(async (user)=>{
-        createUserData(user)
+      if(!user) return;
+      const userRef= await createUserData(user);
+      userRef.on('value',(snapshot)=>{
+          setUserData(snapshot.val()) 
+      }) 
     })
-
     return ()=>{
       unsuscribeFromAuth()
     }
   },[])
 
+  console.log(userData)
   return (
     <div >
       <Header userData={userData}/>
