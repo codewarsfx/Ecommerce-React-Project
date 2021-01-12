@@ -49,19 +49,21 @@ catch(error){
 
  export const createUserData =async (authUser,otherData) =>{
      if(!authUser) return;
+
      const userRef = database.ref(`users/${authUser.uid}`);
-     userRef.once('value',(snapshot)=>{
+
+     userRef.on('value',(snapshot)=>{
+
        if(snapshot.val()) return;
        const createdAt= new Date()
        userRef.set({
-         name:authUser.displayName,
+         name: authUser.displayName ,
          email:authUser.email,
          createdAt,
          ...otherData
        })
+
      })
-     console.log('hey')
-     console.log(userRef)
      return userRef
 }
 

@@ -1,6 +1,7 @@
 import React, { useReducer } from 'react';
 import styled from 'styled-components';
 import CustomButton from './button'
+import { auth, createUserData } from './firebase.utils';
 import FormInput from './formInput'
 
 
@@ -18,6 +19,11 @@ const reducer = (state,action)=>{
         case 'confirmPassword':
             return { ...state,confirmPassword: action.payload }
             break;
+        case 'reset':
+            return{
+                name:'',email:'',password:'',confirmPassword:''
+            }
+            break
         default:
             return state
             break;
@@ -35,6 +41,29 @@ const SignUp= ()=>{
         })
 
     }
+
+    const handleSubmit = async (e)=>{
+        e.preventDefault()
+        const {name,email,password,confirmPassword} = state;
+
+        if(confirmPassword !== password){
+            alert('paswword doesnt match please correct')
+            return
+        }
+
+
+        try{
+
+        const {user} = await auth.createUserWithEmailAndPassword(email,password)
+            createUserData(user,{name})    
+            dispatch({
+                type:'reset'
+            })
+        }
+        catch(error){
+            console.error(error);
+        }
+    }
  
     const {name,password,email,confirmPassword } = state
 
@@ -43,7 +72,7 @@ const SignUp= ()=>{
             <h1 className='title'>
                 Sign Up
             </h1>
-            <form>
+            <form onSubmit= {handleSubmit}>
                 <FormInput name="name" type='text' required label='Name' value={name} handleChange={handleChange}/>
                 <FormInput name="email" type='email' required label='Email' value={email} handleChange={handleChange}/>
                 <FormInput name="password" type='password' required label='Password' value={password} handleChange={handleChange}/>

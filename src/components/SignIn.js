@@ -1,13 +1,12 @@
 import React, { useReducer } from 'react'
 import styled from 'styled-components'
 import CustomButton from './button'
-import { signInWithGoogle } from './firebase.utils'
+import { auth, signInWithGoogle } from './firebase.utils'
 import FormInput from './formInput'
 
 
 
 const reducer= (state,action)=>{
-    console.log(state)
     switch(action.type){
         case 'email':
             return {...state, email:action.payload}
@@ -34,10 +33,19 @@ const SignIn=()=>{
                   payload:e.target.value})
              }
 
-    const handleSubmit = (e)=>{
+    const handleSubmit = async (e)=>{
         e.preventDefault()
         //@ts-ignore 
-        dispatch({type:"submit"})
+        const {email,password} = state
+        try{
+            await auth.signInWithEmailAndPassword(email,password);
+             dispatch({type:"submit"})
+        }
+        catch(error){
+            console.error('an error occured',error
+            );
+        }
+       
     }
 
     return(

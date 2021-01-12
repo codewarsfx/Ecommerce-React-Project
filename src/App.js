@@ -20,6 +20,7 @@ function App() {
             ...snapshot.val()
           }) 
       })
+      return
     }
 
     setUserData(user)
@@ -30,9 +31,9 @@ function App() {
   
   },[])
 
-  console.log(userData)
   return (
     <div >
+      
       <Header userData={userData}/>
       <Switch>
       <Route exact path='/' component={Homepage }/>
