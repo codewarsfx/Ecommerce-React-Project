@@ -1,5 +1,4 @@
 
-
 import {Homepage,Shop, SignUpSignIn} from './pages'
 import {createGlobalStyle} from 'styled-components'
 import {Route, Switch} from 'react-router-dom'
@@ -14,36 +13,33 @@ function App() {
     const unsuscribeFromAuth= auth.onAuthStateChanged( async (user)=>{
       if(user){
       const userRef= await createUserData(user);
-      userRef.on('value',(snapshot)=>{
+      userRef.onSnapshot(snapshot=>{
           setUserData({
             currentID:user.uid,
-            ...snapshot.val()
+            ...snapshot.data()
           }) 
-      })
-      return
-    }
-
+      }) }  
     setUserData(user)
-  })
     return ()=>{
       unsuscribeFromAuth()
     }
-  
-  },[])
+
+  })},[])
 
   return (
     <div >
       
       <Header userData={userData}/>
       <Switch>
-      <Route exact path='/' component={Homepage }/>
-      <Route exact path='/shop' component={Shop}/>
-      <Route exact path='/signin' component={SignUpSignIn      }/>
+        <Route exact path='/' component={Homepage }/>
+        <Route exact path='/shop' component={Shop}/>
+        <Route exact path='/signin' component={SignUpSignIn}/>
       </Switch>
       <Global/>
     </div>
   );
 }
+
 
 const Global= createGlobalStyle`
 :root{
