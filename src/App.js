@@ -29,7 +29,7 @@ function App() {
   return (
     <div >
       
-      <Header userData={userData}/>
+      <Header/>
       <Switch>
         <Route exact path='/' component={Homepage }/>
         <Route exact path='/shop' component={Shop}/>

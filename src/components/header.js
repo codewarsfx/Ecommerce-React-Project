@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import logo  from '../assets/crown.svg'
 import styled from 'styled-components'
 import {auth} from './firebase.utils'
+import {connect } from 'react-redux'
 
 
 
@@ -56,4 +57,9 @@ const Wrapper = styled.div`
 }
 
 `
-export default Header
+
+const mapStateToProps =state=>({
+  currentUser: state.user.currentUser
+})
+
+export default connect(mapStateToProps)(Header)
