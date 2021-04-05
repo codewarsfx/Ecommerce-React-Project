@@ -4,10 +4,12 @@ import logo  from '../assets/crown.svg'
 import styled from 'styled-components'
 import {auth} from './firebase.utils'
 import {connect } from 'react-redux'
+import CartIcon from './cart-icon/cart-icon.jsx'
+import CartDropdown from './cart-dropdown'
 
 
 
-const Header =({currentUser})=>{
+const Header =({currentUser,showDropdown})=>{
     return(
         <Wrapper>
             <Link className="logo-container" to ='/'>
@@ -19,7 +21,11 @@ const Header =({currentUser})=>{
                   currentUser ? <div className="option" onClick={()=>auth.signOut()}> SIGN OUT </div> :
                   <Link to='/signIn'>SIGN IN</Link>
                 }
+                <CartIcon/>
             </div>
+            {
+              showDropdown? null : <CartDropdown/>
+}
 
         </Wrapper>
 
@@ -58,7 +64,8 @@ const Wrapper = styled.div`
 `
 
 const mapStateToProps =state=>({
-  currentUser: state.user.currentUser
+  currentUser: state.user.currentUser,
+  showDropdown : state.cart.hidden
 })
 
 export default connect(mapStateToProps)(Header)

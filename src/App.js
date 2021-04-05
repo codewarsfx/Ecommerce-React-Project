@@ -1,15 +1,17 @@
 
 import {Homepage,Shop, SignUpSignIn} from './pages'
 import {createGlobalStyle} from 'styled-components'
-import {Route, Switch} from 'react-router-dom'
+import {Route, Switch,Redirect} from 'react-router-dom'
 import { Header,auth, createUserData } from './components';
 import { useEffect } from 'react';
 import {connect} from 'react-redux'
-import {setUser} from './redux/redux.actions'
+import {setUser} from './redux/user/user.actions'
+
+
 
 
 function App(props) {
-  const {setUserData} = props
+  const {setUserData,currentUser} = props
   useEffect(()=> {
     const unsuscribeFromAuth= auth.onAuthStateChanged( async (user)=>{
       if(user){
@@ -34,7 +36,7 @@ function App(props) {
       <Switch>
         <Route exact path='/' component={Homepage }/>
         <Route exact path='/shop' component={Shop}/>
-        <Route exact path='/signin' component={SignUpSignIn}/>
+        <Route exact path='/signin' render={ ()=> currentUser? <Redirect to='/'/>: <SignUpSignIn/>}/>
       </Switch>
       <Global/>
     </div>
@@ -67,4 +69,8 @@ const mapDispatchToProps = (dispatch)=>({
    }
 })
 
-export default connect(null,mapDispatchToProps)(App);
+const mapStatetoProps = (state) => ({
+   currentUser : state.user.currentUser
+})
+
+export default connect(mapStatetoProps,mapDispatchToProps)(App);
