@@ -2,7 +2,7 @@
 
 export const setUser = user=>{ 
     return {
-        action:'SET_CURRENT_USER',
+        type:'SET_CURRENT_USER',
         payload:user
     }
 }

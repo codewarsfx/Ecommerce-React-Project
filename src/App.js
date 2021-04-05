@@ -3,12 +3,13 @@ import {Homepage,Shop, SignUpSignIn} from './pages'
 import {createGlobalStyle} from 'styled-components'
 import {Route, Switch} from 'react-router-dom'
 import { Header,auth, createUserData } from './components';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
+import {connect} from 'react-redux'
+import {setUser} from './redux/redux.actions'
 
 
-function App() {
-  const [userData,setUserData] = useState(null)
-
+function App(props) {
+  const {setUserData} = props
   useEffect(()=> {
     const unsuscribeFromAuth= auth.onAuthStateChanged( async (user)=>{
       if(user){
@@ -60,6 +61,10 @@ a{
 }
 
 `
+const mapDispatchToProps = (dispatch)=>({
+   setUserData:( user) => {
+     dispatch(setUser(user))
+   }
+})
 
-
-export default App;
+export default connect(null,mapDispatchToProps)(App);

@@ -7,8 +7,7 @@ import {connect } from 'react-redux'
 
 
 
-const Header =({userData})=>{
-
+const Header =({currentUser})=>{
     return(
         <Wrapper>
             <Link className="logo-container" to ='/'>
@@ -17,7 +16,7 @@ const Header =({userData})=>{
             <div className="options">
                 <Link to='/shop' className="option">Shop</Link>
                 <Link to='/shop' className="option">Contact</Link>{
-                  userData ? <div className="option" onClick={()=>auth.signOut()}> SIGN OUT </div> :
+                  currentUser ? <div className="option" onClick={()=>auth.signOut()}> SIGN OUT </div> :
                   <Link to='/signIn'>SIGN IN</Link>
                 }
             </div>
