@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {withRouter} from 'react-router-dom'
 
 const MenuItem= ({title,imageUrl,size,history, routeName,match})=>{
-    
+
         return (     
             <Menu style={{height:`${size==='large'?'360px':'240px'}`} }  onClick={()=>{history.push(`${match.url}${routeName}`)}} >
                 <div style={{backgroundImage:`url(${imageUrl})`}} className='background-image'></div>
