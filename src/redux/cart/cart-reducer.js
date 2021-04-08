@@ -7,6 +7,8 @@ const initial_state = {
 }
 
 
+
+
 const cartReducer =  ( state = initial_state,action) =>{
     
     switch (action.type) {
@@ -18,13 +20,12 @@ const cartReducer =  ( state = initial_state,action) =>{
         case cartTypes.addToCart:
             return {
                 ...state,
-                items:[...state.items,action.payload]
+                items: organiseCart(state.items,action.payload)
             }
         default:
             return state
     } 
 }
-
 
 export default cartReducer
 
