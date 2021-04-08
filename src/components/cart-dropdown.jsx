@@ -1,15 +1,21 @@
 import React from 'react'
 import styled from 'styled-components'
 import CustomButton from './button'
+import {connect} from 'react-redux'
+import CartItem from './cart-item'
+import {cartItemsSelect} from '../redux/cart/cart.selectors'
 
 
 
-const CartDropdown =()=>{
-    
+const CartDropdown =({items})=>{
  return(
      
     <Wrapper>
-        <div className="cart-items"/>
+        <div className="cart-items">
+          {
+            items.map(item => <CartItem key={item.id} item= {item}/>)
+          }
+        </div>
         <CustomButton>Check Out </CustomButton>
     </Wrapper>
      
@@ -45,4 +51,10 @@ const Wrapper = styled.div`
 
 `
 
-export default CartDropdown
+const mapStatetoProps= (state) => (
+  {
+    items: cartItemsSelect(state)
+  }
+)
+
+export default connect(mapStatetoProps)(CartDropdown)
