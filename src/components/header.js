@@ -1,11 +1,17 @@
 import React  from 'react'
-import { Link } from 'react-router-dom'
-import logo  from '../assets/crown.svg'
-import styled from 'styled-components'
-import {auth} from './firebase.utils'
 import {connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import styled from 'styled-components'
+import {createStructuredSelector} from 'reselect'
+
+
+
+import logo  from '../assets/crown.svg'
+import {auth} from './firebase.utils'
 import CartIcon from './cart-icon/cart-icon.jsx'
 import CartDropdown from './cart-dropdown'
+import {userAuthSelect} from '../redux/user/user.selector'
+import {cartHiddenSelect} from '../redux/cart/cart.selectors'
 
 
 
@@ -63,9 +69,9 @@ const Wrapper = styled.div`
 
 `
 
-const mapStateToProps =state=>({
-  currentUser: state.user.currentUser,
-  showDropdown : state.cart.hidden
+const mapStateToProps =createStructuredSelector({
+  currentUser: userAuthSelect,
+  showDropdown : cartHiddenSelect
 })
 
 export default connect(mapStateToProps)(Header)

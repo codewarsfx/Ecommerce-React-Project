@@ -1,11 +1,17 @@
-
-import {Homepage,Shop, SignUpSignIn} from './pages'
-import {createGlobalStyle} from 'styled-components'
-import {Route, Switch,Redirect} from 'react-router-dom'
-import { Header,auth, createUserData } from './components';
 import { useEffect } from 'react';
 import {connect} from 'react-redux'
+import {createGlobalStyle} from 'styled-components'
+import {Route, Switch,Redirect} from 'react-router-dom'
+
+
+
+
+import {Homepage,Shop, SignUpSignIn,Checkout} from './pages'
+import { Header,auth, createUserData } from './components';
 import {setUser} from './redux/user/user.actions'
+import {userAuthSelect} from './redux/user/user.selector'
+
+
 
 
 
@@ -36,6 +42,7 @@ function App(props) {
       <Switch>
         <Route exact path='/' component={Homepage }/>
         <Route exact path='/shop' component={Shop}/>
+        <Route exact path='/checkout' component={Checkout}/>
         <Route exact path='/signin' render={ ()=> currentUser? <Redirect to='/'/>: <SignUpSignIn/>}/>
       </Switch>
       <Global/>
@@ -70,7 +77,7 @@ const mapDispatchToProps = (dispatch)=>({
 })
 
 const mapStatetoProps = (state) => ({
-   currentUser : state.user.currentUser
+   currentUser : userAuthSelect(state)
 })
 
 export default connect(mapStatetoProps,mapDispatchToProps)(App);

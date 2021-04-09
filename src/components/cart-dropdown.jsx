@@ -1,22 +1,30 @@
 import React from 'react'
 import styled from 'styled-components'
-import CustomButton from './button'
 import {connect} from 'react-redux'
+import {withRouter} from 'react-router-dom'
+
+import CustomButton from './button'
 import CartItem from './cart-item'
 import {cartItemsSelect} from '../redux/cart/cart.selectors'
+import {toggleCart} from '../redux/cart/cart.actions'
 
 
 
-const CartDropdown =({items})=>{
+const CartDropdown =({items,history,dispatch})=>{
  return(
      
     <Wrapper>
         <div className="cart-items">
           {
-            items.map(item => <CartItem key={item.id} item= {item}/>)
+            items.length > 0 ? items.map(item => <CartItem key={item.id} item= {item}/>) :(
+              <span className='dropdown-empty'>No Item Added Yet </span>
+            )
           }
         </div>
-        <CustomButton>Check Out </CustomButton>
+        <CustomButton onClick={()=>{
+          history.push('/checkout')
+          dispatch(toggleCart())
+      }}>Check Out </CustomButton>
     </Wrapper>
      
     
@@ -31,6 +39,7 @@ const Wrapper = styled.div`
   height: 340px;
   display: flex;
   flex-direction: column;
+  
   padding: 20px;
   border: 1px solid black;
   background-color: white;
@@ -41,8 +50,11 @@ const Wrapper = styled.div`
   .cart-items {
     height: 240px;
     display: flex;
-    flex-direction: column;
     overflow: scroll;
+    flex-direction: column;
+    .dropdown-empty{
+     align-self:center;
+    }
   }
 
   button {
@@ -57,4 +69,4 @@ const mapStatetoProps= (state) => (
   }
 )
 
-export default connect(mapStatetoProps)(CartDropdown)
+export default withRouter(connect(mapStatetoProps)(CartDropdown))

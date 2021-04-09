@@ -9,3 +9,8 @@ export const addToCart = (item)=>({
     type: cartTypes.addToCart,
     payload: item
 })
+
+export const removeToCart = (item)=>({
+    type: cartTypes.removeFromCart,
+    payload: item
+})
