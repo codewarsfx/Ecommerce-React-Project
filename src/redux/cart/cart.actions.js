@@ -14,3 +14,9 @@ export const removeToCart = (item)=>({
     type: cartTypes.removeFromCart,
     payload: item
 })
+
+
+export const  reduceItem = (item)=>({
+    type: cartTypes.reduceItem,
+    payload: item
+})

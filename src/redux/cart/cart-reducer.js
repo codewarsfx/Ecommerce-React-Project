@@ -1,5 +1,6 @@
+import { reduceItem } from './cart.actions'
 import {cartTypes} from './cart.types'
-import {organiseCart} from './cart.utils'
+import {organiseCart,reduceItems} from './cart.utils'
 
 const initial_state = {
     hidden: true,
@@ -26,6 +27,11 @@ const cartReducer =  ( state = initial_state,action) =>{
             return {
                 ...state,
                 items: state.items.filter( item => item.id !== action.payload.id)
+            }
+        case cartTypes.reduceItem:
+            return {
+                ...state,
+                items: reduceItems(state.items, action.payload)
             }
         default:
             return state

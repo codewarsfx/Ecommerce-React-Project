@@ -1,9 +1,11 @@
 import React from 'react';
 import {connect} from'react-redux'
 import styled from 'styled-components'
-import {removeToCart} from '../redux/cart/cart.actions'
 
-const CheckoutItem =({item,removeItem})=>{
+
+import {removeToCart,addToCart,reduceItem} from '../redux/cart/cart.actions'
+
+const CheckoutItem =({item,removeItem,addedItem,reduceCartQuantity})=>{
     const {imageUrl,name,quantity,price} =item
     return (
         
@@ -12,7 +14,12 @@ const CheckoutItem =({item,removeItem})=>{
                 <img src={imageUrl} alt='product'/>
             </div>
             <span className="name">{name}</span>
-            <span className="quantity">{quantity}</span>
+            <div className="quantity"> 
+                     <div className="arrow" onClick={()=>reduceCartQuantity(item)}>&#10094;</div>
+                    <div >{quantity}</div>
+                    <div className="arrow" onClick={()=>addedItem(item)}>&#10095;</div>
+            </div>
+      
             <span className="price">{price}</span>
             <span className="remove-button"  onClick={()=>removeItem(item)}> &#10006;</span>
         </Wrapper>
@@ -32,6 +39,7 @@ const Wrapper = styled.div`
   font-size: 20px;
   align-items: center;
 
+
   .image-container {
     width: 23%;
     padding-right: 15px;
@@ -46,10 +54,15 @@ const Wrapper = styled.div`
   .price {
     width: 23%;
   }
+   .quantity{
+     display:flex;
+      padding-left: 0px;
+      .arrow{
+        margin:0 10px;
+        cursor: pointer;
+      }
+   }
 
-  .quantity {
-    padding-left: 20px;
-  }
 
   .remove-button {
     padding-left: 12px;
@@ -63,6 +76,14 @@ const Wrapper = styled.div`
 const mapDispatchToProps = (dispatch)=>({
     removeItem :(item) =>{
         dispatch(removeToCart(item))
+    },
+    
+    addedItem: (item)=>{
+      dispatch(addToCart(item))
+      
+    },
+    reduceCartQuantity:(item)=>{
+      dispatch(reduceItem(item))
     }
 })
 

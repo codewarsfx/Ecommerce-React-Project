@@ -11,3 +11,18 @@ export const organiseCart = (cartItems, addedItem) => {
     
      
 }
+
+
+export const reduceItems = (cartItems, addedItems)=>{
+    
+    const isItemPresent = cartItems.find(item => item.id === addedItems.id)
+    
+    if(isItemPresent.quantity === 1) {
+        return cartItems.filter(item => item.id !== addedItems.id)
+    }
+    
+    
+    return cartItems.map(item =>item.id === addedItems.id? {...item,quantity:item.quantity-1}: item)
+    
+    
+}
