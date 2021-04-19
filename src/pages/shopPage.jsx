@@ -1,10 +1,15 @@
-import React, { useState } from 'react'
-import {homeSections} from '../Context/mockData'
+import React from 'react'
+import {connect} from 'react-redux'
+import {createStructuredSelector} from 'reselect'
+
+
+
+import {directoryDataSelector} from '../redux/directory/directory.selector'
 import {CollectionPreview} from '../components'
 
 
-const Shop= ()=>{
-    const [itemData,setItemData]= useState(homeSections)
+const Shop= ({itemData})=>{
+
     return(
        <div className="shop-page">
            {
@@ -18,5 +23,9 @@ const Shop= ()=>{
     )
 }
 
+const mapStateToProps = createStructuredSelector({
+    itemData: directoryDataSelector
+})
 
-export default Shop
+
+export default connect(mapStateToProps)(Shop)

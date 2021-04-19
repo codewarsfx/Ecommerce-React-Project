@@ -1,18 +1,25 @@
-import React, { useState } from 'react'
+import React from 'react'
 import styled from 'styled-components'
-import {homeSections} from '../Context/mockData'
+import {connect} from 'react-redux'
+import {createStructuredSelector} from 'reselect'
+
+
+
+
 import MenuItem from './menu-item'
+import {directoryDataSelector} from '../redux/directory/directory.selector'
 
 
-const Directory = ()=> {
 
-    const [section,updateSection]=useState(homeSections)
+
+const Directory = ({directory})=> {
+
 
     return(
 
         <Wrapper>
             {
-                section.map(item => <MenuItem key={item.id} {...item}/>)
+                directory.map(item => <MenuItem key={item.id} {...item}/>)
             }
         </Wrapper>
         
@@ -29,4 +36,9 @@ const Wrapper= styled.div`
 `
 
 
-export default Directory
+const mapStatetoProps = createStructuredSelector({
+    directory: directoryDataSelector
+})
+
+
+export default connect(mapStatetoProps)(Directory)
