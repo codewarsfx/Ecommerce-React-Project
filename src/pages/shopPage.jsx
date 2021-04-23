@@ -4,16 +4,16 @@ import {createStructuredSelector} from 'reselect'
 
 
 
-import {directoryDataSelector} from '../redux/directory/directory.selector'
+import {collectionDataSelector} from '../redux/collection/collection.selector'
 import {CollectionPreview} from '../components'
 
 
-const Shop= ({itemData})=>{
+const Shop= ({collection})=>{
 
     return(
        <div className="shop-page">
            {
-              itemData.map(({id,...rest})=>{
+              collection.map(({id,...rest})=>{
                   return(
                       <CollectionPreview key={id} {...rest} />
                   )
@@ -24,7 +24,7 @@ const Shop= ({itemData})=>{
 }
 
 const mapStateToProps = createStructuredSelector({
-    itemData: directoryDataSelector
+    collection: collectionDataSelector
 })
 
 
