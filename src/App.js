@@ -18,6 +18,7 @@ import {userAuthSelect} from './redux/user/user.selector'
 
 
 
+
 function App(props) {
   const {setUserData,currentUser} = props
   useEffect(()=> {
@@ -43,7 +44,7 @@ function App(props) {
       <Header/>
       <Switch>
         <Route exact path='/' component={Homepage }/>
-        <Route exact path='/shop' component={Shop}/>
+        <Route  path='/shop' component={Shop}/>
         <Route exact path='/checkout' component={Checkout}/>
         <Route exact path='/signin' render={ ()=> currentUser? <Redirect to='/'/>: <SignUpSignIn/>}/>
       </Switch>
