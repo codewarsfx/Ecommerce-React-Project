@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import {connect } from "react-redux"
 
 
-
+import {CollectionItem} from '../components'
 import {collectionListSelector} from '../redux/collection/collection.selector'
 
 
@@ -12,9 +12,17 @@ import {collectionListSelector} from '../redux/collection/collection.selector'
 
 
 const  CollectionPage = ({collectionList})=> {
-    console.log(collectionList)     
+    const {title,items} =collectionList   
     return (
-         <h1>hey</h1>
+        <Wrapper>
+         <h2>{title}</h2>
+         <div className="items">
+         {
+             items.map(item => <CollectionItem id={item.id} item={item}/>)
+         }
+         </div>
+         </Wrapper>
+         
     )
    
 }

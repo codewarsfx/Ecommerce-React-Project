@@ -17,7 +17,6 @@ const CollectionItem= ({item,addItemToCart})=>{
             <span className="price">${price}</span>
             </div> 
             <CustomButton className="inverted-button"  onClick={() => addItemToCart(item)} inverted> Add To Cart </CustomButton>
-            
           </Wrapper>
         
     )
@@ -27,7 +26,7 @@ const CollectionItem= ({item,addItemToCart})=>{
 const Wrapper =styled.div`
 
   position:relative;
-  width: 22%;
+  width: 22vw;
   display: flex;
   flex-direction: column;
   height: 350px;

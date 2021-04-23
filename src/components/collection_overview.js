@@ -4,7 +4,7 @@ import {createStructuredSelector} from 'reselect'
 import {connect} from 'react-redux'
 
 
-import {collectionDataSelector} from '../redux/collection/collection.selector'
+import {collectionArraySelector} from '../redux/collection/collection.selector'
 import CollectionPreview from './collectionPreview'
 
 const CollectionOverview = ({collection})=>{
@@ -36,7 +36,7 @@ const Wrapper =  styled.section`
 
 
 const mapStatetoProps = createStructuredSelector({
-    collection: collectionDataSelector
+    collection: collectionArraySelector
 })
 
 
