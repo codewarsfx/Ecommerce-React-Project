@@ -1,17 +1,16 @@
 import { useEffect } from 'react';
 import {connect} from 'react-redux'
 import {createGlobalStyle} from 'styled-components'
-
 import {Route, Switch,Redirect} from 'react-router-dom'
 
 
 
 
-
 import {Homepage,Shop, SignUpSignIn,Checkout} from './pages'
-import { Header,auth, createUserData } from './components';
+import { Header,auth, createUserData,createCollectionData } from './components';
 import {setUser} from './redux/user/user.actions'
 import {userAuthSelect} from './redux/user/user.selector'
+import {collectionArraySelector } from './redux/collection/collection.selector'
 
 
 
@@ -20,7 +19,8 @@ import {userAuthSelect} from './redux/user/user.selector'
 
 
 function App(props) {
-  const {setUserData,currentUser} = props
+  const {setUserData,currentUser,collectionData} = props
+  console.log(collectionData)
   useEffect(()=> {
     const unsuscribeFromAuth= auth.onAuthStateChanged( async (user)=>{
       if(user){
@@ -32,6 +32,7 @@ function App(props) {
           }) 
       }) }  
     setUserData(user)
+    createCollectionData("items",collectionData.map(({title,items})=>({items,title})))
     return ()=>{
       unsuscribeFromAuth()
     }
@@ -80,7 +81,8 @@ const mapDispatchToProps = (dispatch)=>({
 })
 
 const mapStatetoProps = (state) => ({
-   currentUser : userAuthSelect(state)
+   currentUser : userAuthSelect(state),
+   collectionData: collectionArraySelector(state)
 })
 
 export default connect(mapStatetoProps,mapDispatchToProps)(App);
