@@ -1,13 +1,14 @@
 import React from 'react'
 import styled from 'styled-components'
 import CollectionItem from './collectionItem'
+import {Link} from 'react-router-dom'
 
 
 
 const CollectionPreview= ({items,title,})=>{
     return(
         <Wrapper>
-            <h1 className="title">{title.toUpperCase()}</h1>
+           <Link to={`shop/${title.toLowerCase()}`}> <h1 className="title">{title.toUpperCase()}</h1></Link>
             <div className='preview'>
             {
                // @ts-ignore

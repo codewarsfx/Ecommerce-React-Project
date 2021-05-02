@@ -7,7 +7,7 @@ import {Route, Switch,Redirect} from 'react-router-dom'
 
 
 import {Homepage,Shop, SignUpSignIn,Checkout} from './pages'
-import { Header,auth, createUserData,createCollectionData } from './components';
+import { Header,auth, createUserData} from './components';
 import {setUser} from './redux/user/user.actions'
 import {userAuthSelect} from './redux/user/user.selector'
 import {collectionArraySelector } from './redux/collection/collection.selector'
@@ -19,8 +19,8 @@ import {collectionArraySelector } from './redux/collection/collection.selector'
 
 
 function App(props) {
-  const {setUserData,currentUser,collectionData} = props
-  console.log(collectionData)
+  const {setUserData,currentUser} = props
+ 
   useEffect(()=> {
     const unsuscribeFromAuth= auth.onAuthStateChanged( async (user)=>{
       if(user){
@@ -32,7 +32,7 @@ function App(props) {
           }) 
       }) }  
     setUserData(user)
-    createCollectionData("items",collectionData.map(({title,items})=>({items,title})))
+
     return ()=>{
       unsuscribeFromAuth()
     }
@@ -41,7 +41,6 @@ function App(props) {
 
   return (
     <div >
-      
       <Header/>
       <Switch>
         <Route exact path='/' component={Homepage }/>
@@ -82,7 +81,7 @@ const mapDispatchToProps = (dispatch)=>({
 
 const mapStatetoProps = (state) => ({
    currentUser : userAuthSelect(state),
-   collectionData: collectionArraySelector(state)
+
 })
 
 export default connect(mapStatetoProps,mapDispatchToProps)(App);

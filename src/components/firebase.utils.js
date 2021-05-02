@@ -15,7 +15,7 @@ const firebaseConfig = {
     measurementId: "G-WFZQ8ZBP6D"
 }
 
-firebase.initializeApp(firebaseConfig)
+!firebase.apps.length ? firebase.initializeApp(firebaseConfig) : firebase.app()
 
 
 export const auth= firebase.auth();
@@ -30,15 +30,10 @@ export const signInWithGoogle = ()=>{auth.signInWithPopup(googleAuthProvider)}
 
 export const  createUserData = async (AuthUser, otherInformation)=>{
   if(!AuthUser) return;
-  
   const UserRef = firestore.doc(`users/${AuthUser.uid}`)
-  
   const userObj = await UserRef.get()
-  
-  if(!userObj.exists){
-    
+  if(!userObj.exists){  
     const createdAt = new Date()
-    
     const userData= {
       uid:AuthUser.uid,
       displayName:AuthUser.displayName,
@@ -50,28 +45,38 @@ export const  createUserData = async (AuthUser, otherInformation)=>{
       userData
     ) 
   } 
-  
   return UserRef
 }
 
 
 export const createCollectionData = async (collectionName, data) => {
-  
-  const collectionRef = firestore.collection(collectionName)
-  
+  const collectionRef = firestore.collection(collectionName) 
   const batch = firestore.batch()
-  
-  data.forEach( item =>{
-    
+  data.forEach( item =>{  
     const documentRef = collectionRef.doc()
-    
-    batch.set(documentRef, item)
-    
-    
+    batch.set(documentRef, item)  
   })
+  return await batch.commit() 
+}
+
+
+
+
+export const fetchCollectionData = async (collectionRef)=>{
   
-  return await batch.commit()
-  
+  const collectionDataArray = collectionRef.docs.map(item=>{
+    const {title,items} = item.data()
+    return {
+      id : item.id,
+      title,
+      items,
+      routeName : encodeURIComponent(title.toLowerCase()) 
+    }  
+  })
+  return collectionDataArray.reduce((accumulator,currentObject)=>{
+    accumulator[`${currentObject.title.toLowerCase()}`] = currentObject
+    return accumulator  
+  },{})
 }
 
 
