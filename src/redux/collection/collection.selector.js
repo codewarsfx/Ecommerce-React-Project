@@ -18,3 +18,8 @@ export const collectionListSelector = memoize(urlParam =>(
 )))
  
 
+export const IsFetchingSelector = createSelector([collectionSelector],data=> data.isFetching)
+
+
+export const isCollectionLoadedSelector = createSelector([collectionDataSelector],data=> !!data )
+

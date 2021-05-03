@@ -1,17 +1,31 @@
 import {collectionType} from './collection.types'
 
 const INITIAL_STATE= {
-  collection:null
+  collection:null,
+  isFetching:false,
+  errorMessage:''
 }
 
 const collectionReducer = (state= INITIAL_STATE, action)=>{
     switch (action.type) {
-      case collectionType.getCollectionData:
+      case collectionType.getCollectionDataStart:
         return {
-         ...state,
-         collection: action.payload
+          ...state,
+          isFetching: true
         }
-        default:
+      case collectionType.getCollectionDataSuccess:
+        return {
+          ...state,
+          isFetching: false,
+          collection:action.payload
+        }
+      case collectionType.getCollectionDataFail:
+        return{
+          ...state,
+          isFetching: false,
+          errorMessage: action.payload
+        }
+      default:
             return state
     }
 }

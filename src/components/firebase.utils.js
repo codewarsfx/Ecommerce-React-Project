@@ -60,14 +60,12 @@ export const createCollectionData = async (collectionName, data) => {
 }
 
 
-
-
-export const fetchCollectionData = async (collectionRef)=>{
+export const fetchCollectionData = (collectionObject)=>{
   
-  const collectionDataArray = collectionRef.docs.map(item=>{
-    const {title,items} = item.data()
+  const collectionDataArray = collectionObject.docs.map(itemObject=>{
+    const {title,items} = itemObject.data()
     return {
-      id : item.id,
+      id : itemObject.id,
       title,
       items,
       routeName : encodeURIComponent(title.toLowerCase()) 
